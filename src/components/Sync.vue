@@ -23,6 +23,9 @@
                     v-model="fieldsToSync"
                     :options="syncableFields"
                 />
+                <k-button class="uncheck-button" icon="cancel-small" @click="fieldsToSync = []">
+                    Uncheck all
+                </k-button> 
             </div>
             
             <k-text v-else>
@@ -115,6 +118,20 @@ export default {
 </script>
 
 
+<style>
+    .uncheck-button {
+        margin-top: 7px;
+        margin-left: auto;
+        padding: 7px 10px 8px 10px;
+        display: block;
+    }
+    .uncheck-button:hover {
+        background: rgb(219, 218, 218);
+    }
+    .uncheck-button .k-button-text {
+        padding-left: 0!important;
+    }
+</style>
 <style scoped>
     .mb {
         margin-bottom: 1.5em

@@ -8,11 +8,14 @@
       _vm.syncFromLanguage = $$v;
     }, expression: "syncFromLanguage" } }), _c("k-checkboxes-field", { attrs: { "label": "Fields to synchronise", "options": _vm.syncableFields }, model: { value: _vm.fieldsToSync, callback: function($$v) {
       _vm.fieldsToSync = $$v;
-    }, expression: "fieldsToSync" } })], 1) : _c("k-text", [_vm._v(" The content has been synced from "), _c("span", { staticClass: "upper" }, [_vm._v(_vm._s(_vm.syncFromLanguage))]), _vm._v(". ")]), _c("template", { slot: "footer" }, [_c("k-button-group", [_c("k-button", { attrs: { "icon": "cancel", "theme": _vm.closeButtonTheme }, on: { "click": _vm.closeDialog } }, [_vm._v(_vm._s(_vm.success ? "Sluiten" : "Annuleren"))]), _vm.allowSync ? _c("k-button", { attrs: { "icon": "play" }, on: { "click": _vm.getContentFromLanguage } }, [_vm._v("Let's GO!")]) : _vm._e()], 1)], 1)], 2)], 1) : _vm._e();
+    }, expression: "fieldsToSync" } }), _c("k-button", { staticClass: "uncheck-button", attrs: { "icon": "cancel-small" }, on: { "click": function($event) {
+      _vm.fieldsToSync = [];
+    } } }, [_vm._v(" Uncheck all ")])], 1) : _c("k-text", [_vm._v(" The content has been synced from "), _c("span", { staticClass: "upper" }, [_vm._v(_vm._s(_vm.syncFromLanguage))]), _vm._v(". ")]), _c("template", { slot: "footer" }, [_c("k-button-group", [_c("k-button", { attrs: { "icon": "cancel", "theme": _vm.closeButtonTheme }, on: { "click": _vm.closeDialog } }, [_vm._v(_vm._s(_vm.success ? "Sluiten" : "Annuleren"))]), _vm.allowSync ? _c("k-button", { attrs: { "icon": "play" }, on: { "click": _vm.getContentFromLanguage } }, [_vm._v("Let's GO!")]) : _vm._e()], 1)], 1)], 2)], 1) : _vm._e();
   };
   var staticRenderFns = [];
   render._withStripped = true;
-  var Sync_vue_vue_type_style_index_0_scoped_true_lang = "";
+  var Sync_vue_vue_type_style_index_0_lang = "";
+  var Sync_vue_vue_type_style_index_1_scoped_true_lang = "";
   function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
     var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
     if (render2) {
