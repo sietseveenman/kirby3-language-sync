@@ -10,8 +10,8 @@ Overwrite selected page fields with values from another language.
 
 With Composer:
 
-```bash
-composer require sietseveenman/kirby3-language-sync
+```
+$ composer require sietseveenman/kirby3-language-sync
 ```
 
 ### Usage
