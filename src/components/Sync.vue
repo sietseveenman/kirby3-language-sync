@@ -4,7 +4,7 @@
         <div class="k-field-label">{{ label }}</div>
 
         <k-button class="da-button" icon="wand" @click="openDialog">
-            {{ buttonLabel || 'Synchronise' }}
+            {{ buttonLabel || 'Synchronize' }}
         </k-button> 
 
         <k-dialog ref="dialog" size="small">
@@ -16,10 +16,10 @@
                     :required="true"
                     label="Select source language"
                     name="sync_from"
-                    help="From which language would you like to synchronise content from?"
+                    help="From which language would you like to synchronize content from?"
                 />
                 <k-checkboxes-field
-                    label="Fields to synchronise"
+                    label="Fields to synchronize"
                     v-model="fieldsToSync"
                     :options="syncableFields"
                 />

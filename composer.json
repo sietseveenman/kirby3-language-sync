@@ -1,6 +1,6 @@
 {
     "name": "sietseveenman/kirby3-language-sync",
-    "description": "Synchronise page content from one language to another",
+    "description": "Synchronize page content from one language to another",
     "type": "kirby-plugin",
     "license": "MIT",
     "authors": [
