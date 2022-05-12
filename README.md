@@ -9,7 +9,8 @@ Overwrite selected page fields with values from another language.
 ## Installation
 
 With Composer:
-```
+
+```bash
 composer require sietseveenman/kirby3-language-sync
 ```
 
