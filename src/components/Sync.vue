@@ -87,10 +87,8 @@ export default {
             this.success = false
         },
         syncFields(fields) {
-            console.log(fields)
             try {
                 fields.forEach(field => {
-                    // if the field name is checked/selected in the dialog 
                     if ( this.fieldsToSync.includes(field.name) ) {
                         this.$store.dispatch("content/update", [field.name, field.value])
                     }
@@ -99,7 +97,6 @@ export default {
                 console.error(error);
             }
             this.success = true
-            console.log(this.$store.state.content)
         },
         getContentFromLanguage() {
             this.$api

@@ -114,7 +114,6 @@
         this.success = false;
       },
       syncFields(fields) {
-        console.log(fields);
         try {
           fields.forEach((field) => {
             if (this.fieldsToSync.includes(field.name)) {
@@ -125,7 +124,6 @@
           console.error(error);
         }
         this.success = true;
-        console.log(this.$store.state.content);
       },
       getContentFromLanguage() {
         this.$api.post(`sync-lang/${encodeURIComponent(this.pageID)}`, { fromLang: this.syncFromLanguage }).then((response) => {
