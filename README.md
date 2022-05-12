@@ -27,5 +27,7 @@ Available field options:
 ```yml
   buttonLabel: string # Overwrite the default button text
 ```
-### Additional info
+### Additional notes
 Any blueprint field with the option 'translate' is set to false will be excluded from the list of selectable fields to synchronize.
+
+This plugin hasn't been battle tested much. Use on production projects at your own risk.
