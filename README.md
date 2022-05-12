@@ -2,6 +2,8 @@
 
 Overwrite selected page fields with values from another language. 
 
+<img width="321" alt="select dialog" src="https://user-images.githubusercontent.com/19320817/168168969-9bd9d214-f9d0-4408-8ec5-4f3b61a79c78.png">
+
 ****
 
 ## Installation
