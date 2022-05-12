@@ -4,7 +4,7 @@
         <div class="k-field-label">{{ label }}</div>
 
         <k-button class="da-button" icon="wand" @click="openDialog">
-            {{ button_label || 'Synchronise' }}
+            {{ buttonLabel || 'Synchronise' }}
         </k-button> 
 
         <k-dialog ref="dialog" size="small">
@@ -44,7 +44,7 @@
 export default {
     props: {
         label: String,
-        button_label: String,
+        buttonLabel: String,
         pageID: String,
         pageFields: Array,
         languages: Array,
@@ -84,17 +84,19 @@ export default {
             this.success = false
         },
         syncFields(fields) {
+            console.log(fields)
             try {
                 fields.forEach(field => {
                     // if the field name is checked/selected in the dialog 
-                    if ( this.fieldsToSync.includes(field.key) ) {
-                        this.$store.dispatch("content/update", [field.key, field.value])
+                    if ( this.fieldsToSync.includes(field.name) ) {
+                        this.$store.dispatch("content/update", [field.name, field.value])
                     }
                 }) 
             } catch (error) {
                 console.error(error);
             }
             this.success = true
+            console.log(this.$store.state.content)
         },
         getContentFromLanguage() {
             this.$api

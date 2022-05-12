@@ -4,7 +4,7 @@
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _vm.render ? _c("section", { staticClass: "k-sync-language-field" }, [_c("div", { staticClass: "k-field-label" }, [_vm._v(_vm._s(_vm.label))]), _c("k-button", { staticClass: "da-button", attrs: { "icon": "wand" }, on: { "click": _vm.openDialog } }, [_vm._v(" " + _vm._s(_vm.button_label || "Synchronise") + " ")]), _c("k-dialog", { ref: "dialog", attrs: { "size": "small" } }, [!_vm.success ? _c("div", [_c("k-select-field", { staticClass: "mb", attrs: { "options": _vm.otherLanguages, "required": true, "label": "Select source language", "name": "sync_from", "help": "From which language would you like to synchronise content from?" }, model: { value: _vm.syncFromLanguage, callback: function($$v) {
+    return _vm.render ? _c("section", { staticClass: "k-sync-language-field" }, [_c("div", { staticClass: "k-field-label" }, [_vm._v(_vm._s(_vm.label))]), _c("k-button", { staticClass: "da-button", attrs: { "icon": "wand" }, on: { "click": _vm.openDialog } }, [_vm._v(" " + _vm._s(_vm.buttonLabel || "Synchronise") + " ")]), _c("k-dialog", { ref: "dialog", attrs: { "size": "small" } }, [!_vm.success ? _c("div", [_c("k-select-field", { staticClass: "mb", attrs: { "options": _vm.otherLanguages, "required": true, "label": "Select source language", "name": "sync_from", "help": "From which language would you like to synchronise content from?" }, model: { value: _vm.syncFromLanguage, callback: function($$v) {
       _vm.syncFromLanguage = $$v;
     }, expression: "syncFromLanguage" } }), _c("k-checkboxes-field", { attrs: { "label": "Fields to synchronise", "options": _vm.syncableFields }, model: { value: _vm.fieldsToSync, callback: function($$v) {
       _vm.fieldsToSync = $$v;
@@ -67,7 +67,7 @@
   const __vue2_script = {
     props: {
       label: String,
-      button_label: String,
+      buttonLabel: String,
       pageID: String,
       pageFields: Array,
       languages: Array,
@@ -111,16 +111,18 @@
         this.success = false;
       },
       syncFields(fields) {
+        console.log(fields);
         try {
           fields.forEach((field) => {
-            if (this.fieldsToSync.includes(field.key)) {
-              this.$store.dispatch("content/update", [field.key, field.value]);
+            if (this.fieldsToSync.includes(field.name)) {
+              this.$store.dispatch("content/update", [field.name, field.value]);
             }
           });
         } catch (error) {
           console.error(error);
         }
         this.success = true;
+        console.log(this.$store.state.content);
       },
       getContentFromLanguage() {
         this.$api.post(`sync-lang/${encodeURIComponent(this.pageID)}`, { fromLang: this.syncFromLanguage }).then((response) => {

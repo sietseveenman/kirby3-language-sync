@@ -2,13 +2,16 @@
 
 use Kirby\Http\Header;
 use Kirby\Http\Response;
+use Kirby\Panel\Page as Panel;
+use Kirby\Cms\Page;
+use Kirby\Form\Form;
 
 Kirby::plugin('sietseveenman/kirby3-language-sync', [
 
     'fields' => [
         'sync' => [
             'props' => [
-                'button_label' => function (string $label = null) {
+                'buttonLabel' => function (string $label = null) {
                     return $label;
                 },
                 'languages' => function () {
@@ -49,38 +52,20 @@ Kirby::plugin('sietseveenman/kirby3-language-sync', [
                 'pattern' => 'sync-lang/(:any)',
                 'method' => 'POST',
                 'action'  => function ($encodedPageID) {
-                    $request = kirby()->request();
-                    $fromLang = $request->get('fromLang');
-
+                    
                     try {
-                        $pageID = urldecode($encodedPageID);
-                        $page = site()->index(true)->find($pageID);
-
-                        $pageBlueprintFields = $page->blueprint()->fields();
-                        $content = $page->content($fromLang);
-
-                        $contentWithInfoFromBlueprint = array_map(function($value, $key) use ($pageBlueprintFields, $content) {
-
-                            $fieldType = $pageBlueprintFields[$key]['type'];
-                            
-                            if ( $fieldType === 'files' ) {
-                                $files = $content->$key()->toFiles();
-                                $files->map(function($file) { return $file->panelPickerData(); } );
-                                $value = $files->values();
-                            }
-
-                            return [
-                                'key' => $key,
-                                'value' => $value,
-                                'type' => $fieldType
-                            ];
-
-                        }, $content->toArray(), $content->keys());
-
-                        // dump($pageBlueprintFields);
-                        // dump($content);
-                        // dump($contentWithInfoFromBlueprint);
-                        // die;
+                        
+                        $request = kirby()->request();
+                        $page = site()->index(true)->find( urldecode( $encodedPageID ) );
+                       
+                        $formFromOtherLanguage = Form::for($page, [
+                            'language' => $request->get('fromLang')
+                        ]);
+                        
+                        $requiredFieldsFromOtherLanguage = 
+                            array_filter( $formFromOtherLanguage->fields()->toArray(), function($field) {
+                                return $field['type'] !== 'sync' && $field['translate'];
+                            });
 
                     } catch (Exception $e) {
                         return Response::json([
@@ -91,7 +76,7 @@ Kirby::plugin('sietseveenman/kirby3-language-sync', [
 
                     return Response::json([
                         'success' => true,
-                        'content' => $contentWithInfoFromBlueprint
+                        'content' => array_values( $requiredFieldsFromOtherLanguage )
                     ], 200);
                 }
             ]
