@@ -16,14 +16,14 @@ composer require sietseveenman/kirby3-language-sync
 ### Usage
 Inside a blueprint.
 
-```
+```yml
 fields:
   languageSync:
     type: sync
 ```
 Available field options:
 
-```
+```yml
   buttonLabel: string # Overwrite the default button text
 ```
 ### Additional info
