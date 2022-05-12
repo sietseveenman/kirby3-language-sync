@@ -1,0 +1,15 @@
+{
+    "name": "sietseveenman/kirby3-language-sync",
+    "description": "Synchronise page content from one language to another",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sietse Veenman",
+            "email": "sietse.veenman@wearejust.com"
+        }
+    ],
+    "require": {
+        "getkirby/composer-installer": "^1.1"
+    }
+}
