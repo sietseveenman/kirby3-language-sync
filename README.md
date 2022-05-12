@@ -28,4 +28,4 @@ Available field options:
   buttonLabel: string # Overwrite the default button text
 ```
 ### Additional info
-Any blueprint field with where the option 'translate' is set to false will be excluded from the list of selectable fields to synchronize.
+Any blueprint field with the option 'translate' is set to false will be excluded from the list of selectable fields to synchronize.
