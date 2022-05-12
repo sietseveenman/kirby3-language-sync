@@ -1,9 +1,6 @@
 <?php
 
-use Kirby\Http\Header;
 use Kirby\Http\Response;
-use Kirby\Panel\Page as Panel;
-use Kirby\Cms\Page;
 use Kirby\Form\Form;
 
 Kirby::plugin('sietseveenman/kirby3-language-sync', [
