@@ -3,13 +3,13 @@
 
         <div class="k-field-label">{{ label }}</div>
 
-        <k-button class="da-button" icon="wand" @click="openDialog">
+        <k-button class="da-button" icon="wand" @click="$refs.dialog.open()">
             {{ buttonLabel || 'Synchronize' }}
         </k-button> 
 
         <k-dialog ref="dialog" size="small">
             
-            <div v-if="!success">
+            <div>
                 <k-select-field class="mb"
                     v-model="syncFromLanguage"
                     :options="otherLanguages"
@@ -26,15 +26,14 @@
                 <k-button class="uncheck-button" icon="cancel-small" @click="fieldsToSync = []">
                     Uncheck all
                 </k-button> 
+                <k-text v-if="failed" class="mt" size="small" style="color: var(--color-negative)">
+                    <b>! whoops, something went wrong</b>
+                </k-text>
             </div>
-            
-            <k-text v-else>
-                The content has been synced from <span class="upper">{{ syncFromLanguage }}</span>.
-            </k-text>
 
             <template slot="footer">
                 <k-button-group>
-                    <k-button icon="cancel" :theme="closeButtonTheme" @click="closeDialog">{{ success ? 'Sluiten' : 'Annuleren'}}</k-button>
+                    <k-button icon="cancel" @click="$refs.dialog.close()">Stop</k-button>
                     <k-button v-if="allowSync" icon="play" @click="getContentFromLanguage">Let's GO!</span></k-button>
                 </k-button-group>
             </template>
@@ -54,13 +53,12 @@ export default {
         render: Boolean
     },
     data(){ return {
-        success: false,
         syncFromLanguage: null,
         fieldsToSync: [],
+        failed: false
     }},
     computed: {
-        closeButtonTheme() { return this.success ? 'positive' : 'negative' },
-        allowSync() { return !this.success && this.syncFromLanguage && this.fieldsToSync.length },
+        allowSync() { return this.syncFromLanguage && this.fieldsToSync.length },
         otherLanguages() {
             return this.languages 
                 ? Object.entries(this.languages)
@@ -75,17 +73,9 @@ export default {
         }
     },
     mounted() {
-        this.pageFields.forEach(field => this.fieldsToSync.push(field.name));
+        this.pageFields.forEach(field => this.fieldsToSync.push(field.name))
     },
     methods: {
-        openDialog() {
-            this.success = false
-            this.$refs.dialog.open()
-        },
-        closeDialog() {
-            this.$refs.dialog.close()
-            this.success = false
-        },
         syncFields(fields) {
             try {
                 fields.forEach(field => {
@@ -93,10 +83,11 @@ export default {
                         this.$store.dispatch("content/update", [field.name, field.value])
                     }
                 }) 
+                this.$refs.dialog.close()
             } catch (error) {
-                console.error(error);
+                console.error(error)
+                this.failed = true
             }
-            this.success = true
         },
         getContentFromLanguage() {
             this.$api
@@ -106,12 +97,16 @@ export default {
                         this.syncFields(response.content)
                     } else {
                         console.error('Response:', response)
+                        this.failed = true
                     }
                 })
-                .catch(error => console.error(error))
+                .catch(error => {
+                    console.error(error)
+                    this.failed = true
+                })
         }
     },
-};
+}
 </script>
 
 
@@ -130,6 +125,9 @@ export default {
     }
 </style>
 <style scoped>
+    .mt {
+        margin-top: 1.5em
+    }
     .mb {
         margin-bottom: 1.5em
     }

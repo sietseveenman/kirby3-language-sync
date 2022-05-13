@@ -1,1 +1,153 @@
-(function(){"use strict";var d=function(){var e=this,t=e.$createElement,n=e._self._c||t;return e.render?n("section",{staticClass:"k-sync-language-field"},[n("div",{staticClass:"k-field-label"},[e._v(e._s(e.label))]),n("k-button",{staticClass:"da-button",attrs:{icon:"wand"},on:{click:e.openDialog}},[e._v(" "+e._s(e.buttonLabel||"Synchronize")+" ")]),n("k-dialog",{ref:"dialog",attrs:{size:"small"}},[e.success?n("k-text",[e._v(" The content has been synced from "),n("span",{staticClass:"upper"},[e._v(e._s(e.syncFromLanguage))]),e._v(". ")]):n("div",[n("k-select-field",{staticClass:"mb",attrs:{options:e.otherLanguages,required:!0,label:"Select source language",name:"sync_from",help:"From which language would you like to synchronize content from?"},model:{value:e.syncFromLanguage,callback:function(i){e.syncFromLanguage=i},expression:"syncFromLanguage"}}),n("k-checkboxes-field",{attrs:{label:"Fields to synchronize",options:e.syncableFields},model:{value:e.fieldsToSync,callback:function(i){e.fieldsToSync=i},expression:"fieldsToSync"}}),n("k-button",{staticClass:"uncheck-button",attrs:{icon:"cancel-small"},on:{click:function(i){e.fieldsToSync=[]}}},[e._v(" Uncheck all ")])],1),n("template",{slot:"footer"},[n("k-button-group",[n("k-button",{attrs:{icon:"cancel",theme:e.closeButtonTheme},on:{click:e.closeDialog}},[e._v(e._s(e.success?"Sluiten":"Annuleren"))]),e.allowSync?n("k-button",{attrs:{icon:"play"},on:{click:e.getContentFromLanguage}},[e._v("Let's GO!")]):e._e()],1)],1)],2)],1):e._e()},h=[],F="",C="";function f(e,t,n,i,l,r,u,b){var s=typeof e=="function"?e.options:e;t&&(s.render=t,s.staticRenderFns=n,s._compiled=!0),i&&(s.functional=!0),r&&(s._scopeId="data-v-"+r);var o;if(u?(o=function(a){a=a||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,!a&&typeof __VUE_SSR_CONTEXT__!="undefined"&&(a=__VUE_SSR_CONTEXT__),l&&l.call(this,a),a&&a._registeredComponents&&a._registeredComponents.add(u)},s._ssrRegister=o):l&&(o=b?function(){l.call(this,(s.functional?this.parent:this).$root.$options.shadowRoot)}:l),o)if(s.functional){s._injectStyles=o;var k=s.render;s.render=function(S,g){return o.call(g),k(S,g)}}else{var _=s.beforeCreate;s.beforeCreate=_?[].concat(_,o):[o]}return{exports:e,options:s}}const p={props:{label:String,buttonLabel:String,pageID:String,pageFields:Array,languages:Array,render:Boolean},data(){return{success:!1,syncFromLanguage:null,fieldsToSync:[]}},computed:{closeButtonTheme(){return this.success?"positive":"negative"},allowSync(){return!this.success&&this.syncFromLanguage&&this.fieldsToSync.length},otherLanguages(){return this.languages?Object.entries(this.languages).filter(e=>e[0]!==this.$language.code).map(e=>({value:e[0],text:e[1]})):[]},syncableFields(){return this.pageFields.map(e=>({value:e.name,text:e.label}))}},mounted(){this.pageFields.forEach(e=>this.fieldsToSync.push(e.name))},methods:{openDialog(){this.success=!1,this.$refs.dialog.open()},closeDialog(){this.$refs.dialog.close(),this.success=!1},syncFields(e){try{e.forEach(t=>{this.fieldsToSync.includes(t.name)&&this.$store.dispatch("content/update",[t.name,t.value])})}catch(t){console.error(t)}this.success=!0},getContentFromLanguage(){this.$api.post(`sync-lang/${encodeURIComponent(this.pageID)}`,{fromLang:this.syncFromLanguage}).then(e=>{e.success?this.syncFields(e.content):console.error("Response:",e)}).catch(e=>console.error(e))}}},c={};var v=f(p,d,h,!1,y,"8c88c81a",null,null);function y(e){for(let t in c)this[t]=c[t]}var m=function(){return v.exports}();window.panel.plugin("sietseveenman/kirby3-language-sync",{fields:{sync:m}})})();
+(function() {
+  "use strict";
+  var render = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _vm.render ? _c("section", { staticClass: "k-sync-language-field" }, [_c("div", { staticClass: "k-field-label" }, [_vm._v(_vm._s(_vm.label))]), _c("k-button", { staticClass: "da-button", attrs: { "icon": "wand" }, on: { "click": function($event) {
+      return _vm.$refs.dialog.open();
+    } } }, [_vm._v(" " + _vm._s(_vm.buttonLabel || "Synchronize") + " ")]), _c("k-dialog", { ref: "dialog", attrs: { "size": "small" } }, [_c("div", [_c("k-select-field", { staticClass: "mb", attrs: { "options": _vm.otherLanguages, "required": true, "label": "Select source language", "name": "sync_from", "help": "From which language would you like to synchronize content from?" }, model: { value: _vm.syncFromLanguage, callback: function($$v) {
+      _vm.syncFromLanguage = $$v;
+    }, expression: "syncFromLanguage" } }), _c("k-checkboxes-field", { attrs: { "label": "Fields to synchronize", "options": _vm.syncableFields }, model: { value: _vm.fieldsToSync, callback: function($$v) {
+      _vm.fieldsToSync = $$v;
+    }, expression: "fieldsToSync" } }), _c("k-button", { staticClass: "uncheck-button", attrs: { "icon": "cancel-small" }, on: { "click": function($event) {
+      _vm.fieldsToSync = [];
+    } } }, [_vm._v(" Uncheck all ")]), _vm.failed ? _c("k-text", { staticClass: "mt", staticStyle: { "color": "var(--color-negative)" }, attrs: { "size": "small" } }, [_c("b", [_vm._v("! whoops, something went wrong")])]) : _vm._e()], 1), _c("template", { slot: "footer" }, [_c("k-button-group", [_c("k-button", { attrs: { "icon": "cancel" }, on: { "click": function($event) {
+      return _vm.$refs.dialog.close();
+    } } }, [_vm._v("Stop")]), _vm.allowSync ? _c("k-button", { attrs: { "icon": "play" }, on: { "click": _vm.getContentFromLanguage } }, [_vm._v("Let's GO!")]) : _vm._e()], 1)], 1)], 2)], 1) : _vm._e();
+  };
+  var staticRenderFns = [];
+  render._withStripped = true;
+  var Sync_vue_vue_type_style_index_0_lang = "";
+  var Sync_vue_vue_type_style_index_1_scoped_true_lang = "";
+  function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+    if (render2) {
+      options.render = render2;
+      options.staticRenderFns = staticRenderFns2;
+      options._compiled = true;
+    }
+    if (functionalTemplate) {
+      options.functional = true;
+    }
+    if (scopeId) {
+      options._scopeId = "data-v-" + scopeId;
+    }
+    var hook;
+    if (moduleIdentifier) {
+      hook = function(context) {
+        context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
+          context = __VUE_SSR_CONTEXT__;
+        }
+        if (injectStyles) {
+          injectStyles.call(this, context);
+        }
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      };
+      options._ssrRegister = hook;
+    } else if (injectStyles) {
+      hook = shadowMode ? function() {
+        injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
+      } : injectStyles;
+    }
+    if (hook) {
+      if (options.functional) {
+        options._injectStyles = hook;
+        var originalRender = options.render;
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        var existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+      }
+    }
+    return {
+      exports: scriptExports,
+      options
+    };
+  }
+  const __vue2_script = {
+    props: {
+      label: String,
+      buttonLabel: String,
+      pageID: String,
+      pageFields: Array,
+      languages: Array,
+      render: Boolean
+    },
+    data() {
+      return {
+        syncFromLanguage: null,
+        fieldsToSync: [],
+        failed: false
+      };
+    },
+    computed: {
+      allowSync() {
+        return this.syncFromLanguage && this.fieldsToSync.length;
+      },
+      otherLanguages() {
+        return this.languages ? Object.entries(this.languages).filter((lang) => lang[0] !== this.$language.code).map((lang) => {
+          return { value: lang[0], text: lang[1] };
+        }) : [];
+      },
+      syncableFields() {
+        return this.pageFields.map((field) => {
+          return { value: field.name, text: field.label };
+        });
+      }
+    },
+    mounted() {
+      this.pageFields.forEach((field) => this.fieldsToSync.push(field.name));
+    },
+    methods: {
+      syncFields(fields) {
+        try {
+          fields.forEach((field) => {
+            if (this.fieldsToSync.includes(field.name)) {
+              this.$store.dispatch("content/update", [field.name, field.value]);
+            }
+          });
+          this.$refs.dialog.close();
+        } catch (error) {
+          console.error(error);
+          this.failed = true;
+        }
+      },
+      getContentFromLanguage() {
+        this.$api.post(`sync-lang/${encodeURIComponent(this.pageID)}`, { fromLang: this.syncFromLanguage }).then((response) => {
+          if (response.success) {
+            this.syncFields(response.content);
+          } else {
+            console.error("Response:", response);
+            this.failed = true;
+          }
+        }).catch((error) => {
+          console.error(error);
+          this.failed = true;
+        });
+      }
+    }
+  };
+  const __cssModules = {};
+  var __component__ = /* @__PURE__ */ normalizeComponent(__vue2_script, render, staticRenderFns, false, __vue2_injectStyles, "4260014b", null, null);
+  function __vue2_injectStyles(context) {
+    for (let o in __cssModules) {
+      this[o] = __cssModules[o];
+    }
+  }
+  __component__.options.__file = "src/components/Sync.vue";
+  var Sync = /* @__PURE__ */ function() {
+    return __component__.exports;
+  }();
+  window.panel.plugin("sietseveenman/kirby3-language-sync", {
+    fields: {
+      "sync": Sync
+    }
+  });
+})();
