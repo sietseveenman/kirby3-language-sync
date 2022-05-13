@@ -4,7 +4,7 @@
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _vm.render ? _c("section", { staticClass: "k-sync-language-field" }, [_c("div", { staticClass: "k-field-label" }, [_vm._v(_vm._s(_vm.label))]), _c("k-button", { staticClass: "da-button", attrs: { "icon": "wand" }, on: { "click": function($event) {
+    return _vm.render ? _c("section", { staticClass: "k-sync-language-field" }, [_c("div", { staticClass: "k-field-label" }, [_vm._v(_vm._s(_vm.label))]), _c("k-button", { staticClass: "da-button", attrs: { "icon": _vm.buttonIcon }, on: { "click": function($event) {
       return _vm.$refs.dialog.open();
     } } }, [_vm._v(" " + _vm._s(_vm.buttonLabel || "Synchronize") + " ")]), _c("k-dialog", { ref: "dialog", attrs: { "size": "small" } }, [_c("div", [_c("k-select-field", { staticClass: "mb", attrs: { "options": _vm.otherLanguages, "required": true, "label": "Select source language", "name": "sync_from", "help": "From which language would you like to synchronize content from?" }, model: { value: _vm.syncFromLanguage, callback: function($$v) {
       _vm.syncFromLanguage = $$v;
@@ -75,6 +75,7 @@
     props: {
       label: String,
       buttonLabel: String,
+      buttonIcon: String,
       pageID: String,
       pageFields: Array,
       languages: Array,

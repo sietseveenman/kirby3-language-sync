@@ -3,7 +3,7 @@
 
         <div class="k-field-label">{{ label }}</div>
 
-        <k-button class="da-button" icon="wand" @click="$refs.dialog.open()">
+        <k-button class="da-button" :icon="buttonIcon" @click="$refs.dialog.open()">
             {{ buttonLabel || 'Synchronize' }}
         </k-button> 
 
@@ -47,6 +47,7 @@ export default {
     props: {
         label: String,
         buttonLabel: String,
+        buttonIcon: String,
         pageID: String,
         pageFields: Array,
         languages: Array,
