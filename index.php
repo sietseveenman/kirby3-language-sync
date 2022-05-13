@@ -8,6 +8,9 @@ Kirby::plugin('sietseveenman/kirby3-language-sync', [
     'fields' => [
         'sync' => [
             'props' => [
+                'buttonIcon' => function (string $icon = 'wand') {
+                    return $icon;
+                },
                 'buttonLabel' => function (string $label = null) {
                     return $label;
                 },

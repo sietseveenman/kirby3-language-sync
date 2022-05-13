@@ -24,7 +24,8 @@ fields:
 ```
 Available field options:
 
-```yml
+```
+  buttonIcon: string or false # Overwrite the default button icon
   buttonLabel: string # Overwrite the default button text
 ```
 ### Additional notes
