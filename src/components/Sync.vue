@@ -1,5 +1,5 @@
 <template>
-    <section class="k-sync-language-field" v-if="render">
+    <section class="k-sync-language-field">
 
         <div class="k-field-label">{{ label }}</div>
 
@@ -51,7 +51,6 @@ export default {
         pageID: String,
         pageFields: Array,
         languages: Array,
-        render: Boolean
     },
     data(){ return {
         syncFromLanguage: null,

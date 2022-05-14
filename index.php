@@ -38,10 +38,7 @@ Kirby::plugin('sietseveenman/kirby3-language-sync', [
                     });
 
                     return array_values( $fieldsWithoutSyncField ); 
-                },
-                'render' => function (bool $render = true) {
-                    return $render;
-                },
+                }
             ],
         ],
     ],
