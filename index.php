@@ -27,17 +27,15 @@ Kirby::plugin('sietseveenman/kirby3-language-sync', [
                 'pageFields' => function () {
                     $page = $this->attrs()['model'];
 
-                    $pageFields = $page->blueprint()->fields();
+                    $blueprintFields = $page->blueprint()->fields();
 
-                    $translatableFields = array_filter($pageFields, function( $field ){ 
-                        return !( array_key_exists('translate', $field) && !$field['translate'] ); 
-                    });
-                    
-                    $fieldsWithoutSyncField = array_filter($translatableFields, function( $field ){
-                        return $field['type'] !== 'sync'; 
+                    $syncableFields = array_filter($blueprintFields, function($field) { 
+                        return 
+                            !( array_key_exists('translate', $field) && !$field['translate'] ) 
+                            && 'sync' !== $field['type']; 
                     });
 
-                    return array_values( $fieldsWithoutSyncField ); 
+                    return array_values( $syncableFields ); 
                 }
             ],
         ],
@@ -80,5 +78,3 @@ Kirby::plugin('sietseveenman/kirby3-language-sync', [
         ]
     ]
 ]);
-
-
