@@ -68,7 +68,7 @@ Kirby::plugin('sietseveenman/kirby3-language-sync', [
                         return Response::json([
                             'success' => false,
                             'message' => $e->getMessage()
-                        ], 200);
+                        ], 500);
                     }
 
                     return Response::json([
